@@ -1,28 +1,39 @@
-countries_information = {}
-countries_information["Polska"] = ("Warszawa", 38.9)
-countries_information["Niemcy"] = ("Berlin", 83.9)
-countries_information["Słowacja"] = ("Bratysława", 5.45)
-
+# Use a dictionary with nested dictionaries for better organization
+countries_information = {
+    "Polska": {"capital": "Warszawa", "population": 38.9},
+    "Niemcy": {"capital": "Berlin", "population": 83.9},
+    "Słowacja": {"capital": "Bratysława", "population": 5.45}
+}
 
 def show_country_info(country):
-    country_information = countries_information.get(country)
-    print()
-    print(country)
-    print("-----")
-    print("Stolica: " + country_information[0])
-    print("Liczba: " + str(country_information[1]))
+    if country not in countries_information:
+        print(f"Country '{country}' not found")
+        return
+    
+    info = countries_information[country]
+    print(f"\n{country}\n-----")
+    print(f"Stolica: {info['capital']}")
+    print(f"Liczba: {info['population']}")
 
+# Use list comprehension for displaying countries
+available_countries = "\n".join(countries_information.keys())
+print(f"Available countries:\n{available_countries}")
 
-for country in countries_information.keys():
-    print(country)
-
-country = input("Jakie chcesz dane?")
+country = input("Jakie chcesz dane? ")
 show_country_info(country)
 
 
-def calc_sum(a, b):
-    return a + b
+
+import operator
+
+def calculate(a, b, operation="add"):
+    operations = {
+        "add": operator.add,
+        "subtract": operator.sub
+    }
+    return operations.get(operation, operator.add)(a, b)
 
 
-sum = calc_sum(2, 5)
-print(sum)
+# Usage
+print(calculate(2, 5))  # Addition (default)
+print(calculate(2, 5, "subtract"))  # Subtraction
